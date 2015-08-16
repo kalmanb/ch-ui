@@ -1,8 +1,8 @@
 import React from 'react';
-import MyComponent from './components/mycomponent.jsx';
+import MainPage from './components/mainpage.jsx';
 
 window.React = React;
 
 React.render(
-    <MyComponent />, document.getElementById('content')
+    <MainPage />, document.getElementById('content')
 );

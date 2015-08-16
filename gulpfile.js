@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     changed = require('gulp-changed'),
     sass = require('gulp-sass'),
     csso = require('gulp-csso'),
+    concat = require('gulp-concat'),
     autoprefixer = require('autoprefixer-core'),
     browserify = require('browserify'),
     watchify = require('watchify'),
@@ -26,6 +27,8 @@ var gulp = require('gulp'),
       bundle: 'app.js',
       distJs: 'dist/js',
       distCss: 'dist/css',
+      distFont: 'dist/font',
+      distFonts: 'dist/fonts',
       distHtml: 'dist',
       distImg: 'dist/img'
     };
@@ -71,7 +74,16 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest(p.distJs));
 });
 
-gulp.task('styles', function() {
+gulp.task("bower-js", function() {
+  return gulp.src([
+    'bower_components/jquery/dist/jquery.js',
+    'bower_components/materialize/dist/js/materialize.js'
+  ])
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest(p.distJs))
+})
+
+gulp.task('sass', function() {
   return gulp.src(p.scss)
     .pipe(changed(p.distCss))
     .pipe(sass({errLogToConsole: true}))
@@ -80,6 +92,38 @@ gulp.task('styles', function() {
     .pipe(csso())
     .pipe(gulp.dest(p.distCss))
     .pipe(reload({stream: true}));
+});
+
+gulp.task("bower-css", function() {
+  return gulp.src([
+    "bower_components/materialize/bin/materialize.css",
+    "bower_components/animate.css/animate.css",
+    "bower_components/font-awesome/css/font-awesome.css"
+  ])
+  .pipe(concat("vendor.css"))
+  .pipe(gulp.dest(p.distCss));
+});
+
+gulp.task('styles', function() {
+    gulp.start(['sass', 'bower-css']);
+});
+
+gulp.task("material-fonts", function() {
+  return gulp.src([
+    "bower_components/materialize/font/**/*"
+  ])
+    .pipe(gulp.dest(p.distFont))
+})
+
+gulp.task("fonts-awesome", function() {
+  return gulp.src([
+    "bower_components/font-awesome/fonts/**.*"
+  ])
+    .pipe(gulp.dest(p.distFonts))
+})
+
+gulp.task('fonts', function() {
+  gulp.start(['material-fonts', 'fonts-awesome']);
 });
 
 gulp.task('html-replace', function () {
@@ -111,12 +155,12 @@ gulp.task('watchTask', function() {
 });
 
 gulp.task('watch', ['clean'], function() {
-  gulp.start(['browserSync', 'watchTask', 'watchify', 'styles', 'lint', 'image']);
+  gulp.start(['browserSync', 'watchTask', 'watchify', 'bower-js', 'fonts', 'styles', 'lint', 'image']);
 });
 
 gulp.task('build', ['clean'], function() {
   process.env.NODE_ENV = 'production';
-  gulp.start(['browserify', 'styles', 'html-replace', 'image']);
+  gulp.start(['browserify', 'bower-js', 'styles', 'fonts', 'html-replace', 'image']);
 });
 
 gulp.task('default', function() {

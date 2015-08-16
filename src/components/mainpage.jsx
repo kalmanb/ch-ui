@@ -5,11 +5,12 @@ export default React.createClass({
     return something;
   },
   render() {
-    let version = "abc"
+    let version = 'abc';
 
     return (
       <div>
         <span>version {version}</span>
+        
       </div>
     );
   }
