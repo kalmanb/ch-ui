@@ -19,6 +19,7 @@
   }],
   "dependencies": {
     "react": "^0.13.3",
+    "react-router": "^0.13.3",
     "alt": "^0.17.1",
     "superagent": "^1.2.0"
   },
