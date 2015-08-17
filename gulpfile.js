@@ -22,7 +22,7 @@ var gulp = require('gulp'),
     image = require('gulp-image'),
     reload = browserSync.reload,
     p = {
-      jsx: './src/app.jsx',
+      jsx: './src/App.jsx',
       scss: 'styles/**/*.scss',
       bundle: 'app.js',
       distJs: 'dist/js',

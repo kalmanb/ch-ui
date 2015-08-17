@@ -10,7 +10,7 @@
 var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
-var routes = require('./routes.jsx');
+var routes = require('./Routes.jsx');
 
 
 Router.run(routes, Router.HashLocation, (Root) => {

@@ -2,14 +2,14 @@ var React = require('react');
 var Router = require('react-router');
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
-var App = require('./components/app.jsx')
-var PersonSearch = require('./components/personsearch.jsx')
-var About = require('./components/about.jsx')
+var App = require('./components/App.jsx')
+var Patients = require('./components/Patients.jsx')
+var Patient = require('./components/Patient.jsx')
 
 var routes = (
   <Route handler={App}>
-    <DefaultRoute handler={PersonSearch}/>
-    <Route path="about" handler={About}/>
+    <DefaultRoute handler={Patients}/>
+    <Route path="patient" handler={Patient}/>
   </Route>
 );
 
