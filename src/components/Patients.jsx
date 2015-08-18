@@ -50,12 +50,6 @@ var patients = React.createClass({
   render() {
     return (
       <div>
-        <nav className='blue darken-2'>
-          <div className='nav-wrapper container'>
-            <Link to='/' className='brand-logo'>Connect Health</Link>
-          </div>
-        </nav>
-        <div>
         <form onSubmit={this.search}>
           <div className='input-field'>
             <label>Search Patients</label>
@@ -68,7 +62,6 @@ var patients = React.createClass({
         <table className="striped">
           { this.renderPatients() }
         </table>
-        </div>
       </div>
     );
   }
