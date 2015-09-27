@@ -1,4 +1,4 @@
-var PatientActions = require('../actions/PatientActions');
+import PatientActions from '../actions/PatientActions';
 
 var patients = [{'id': 1,
                   'firstName': 'Kal',

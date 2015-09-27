@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'react-router';
 
 import PatientLine from './PatientLine.jsx';
-import PatientsStore from '../stores/PatientsStore.js';
-import PatientActions from '../actions/PatientActions.js';
+import PatientsStore from '../stores/PatientsStore';
+import PatientActions from '../actions/PatientActions';
 
 
 var Patients = React.createClass({
