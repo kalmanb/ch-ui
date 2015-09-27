@@ -1,6 +1,6 @@
-var alt = require('../alt.js');
-var PatientActions = require('../actions/PatientActions');
-var PatientsSource = require('../sources/PatientsSource');
+import altInstance from '../altInstance.js';
+import PatientActions from '../actions/PatientActions';
+import PatientsSource from '../sources/PatientsSource';
 
 class PatientsStore {
   constructor() {
@@ -32,4 +32,4 @@ class PatientsStore {
   }
 }
 
-module.exports = alt.createStore(PatientsStore, 'PatientsStore')
+module.exports = altInstance.createStore(PatientsStore, 'PatientsStore')

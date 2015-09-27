@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     csso = require('gulp-csso'),
     concat = require('gulp-concat'),
-    autoprefixer = require('autoprefixer-core'),
+    autoprefixer = require('autoprefixer'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     source = require('vinyl-source-stream'),
@@ -21,7 +21,7 @@ var gulp = require('gulp'),
     htmlReplace = require('gulp-html-replace'),
     image = require('gulp-image'),
     reload = browserSync.reload,
-    p = {
+    config = {
       jsx: './src/App.jsx',
       scss: 'styles/**/*.scss',
       bundle: 'app.js',
@@ -33,8 +33,8 @@ var gulp = require('gulp'),
       distImg: 'dist/img'
     };
 
-gulp.task('clean', function(cb) {
-  del(['dist'], cb);
+gulp.task('clean', function() {
+  return del(['dist']);
 });
 
 gulp.task('browserSync', function() {
@@ -46,14 +46,14 @@ gulp.task('browserSync', function() {
 });
 
 gulp.task('watchify', function() {
-  var bundler = watchify(browserify(p.jsx, watchify.args));
+  var bundler = watchify(browserify(config.jsx, watchify.args));
 
   function rebundle() {
     return bundler
       .bundle()
       .on('error', notify.onError())
-      .pipe(source(p.bundle))
-      .pipe(gulp.dest(p.distJs))
+      .pipe(source(config.bundle))
+      .pipe(gulp.dest(config.distJs))
       .pipe(reload({stream: true}));
   }
 
@@ -63,15 +63,18 @@ gulp.task('watchify', function() {
 });
 
 gulp.task('browserify', function() {
-  browserify(p.jsx)
+  browserify({
+    entries: config.jsx
+  }
+    )
     .transform(babelify)
     .bundle()
-    .pipe(source(p.bundle))
+    .pipe(source(config.bundle))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(p.distJs));
+    .pipe(gulp.dest(config.distJs));
 });
 
 gulp.task("bower-js", function() {
@@ -80,17 +83,17 @@ gulp.task("bower-js", function() {
     'bower_components/materialize/dist/js/materialize.js'
   ])
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(p.distJs))
+    .pipe(gulp.dest(config.distJs))
 })
 
 gulp.task('sass', function() {
-  return gulp.src(p.scss)
-    .pipe(changed(p.distCss))
+  return gulp.src(config.scss)
+    .pipe(changed(config.distCss))
     .pipe(sass({errLogToConsole: true}))
     .on('error', notify.onError())
     .pipe(postcss([autoprefixer('last 1 version')]))
     .pipe(csso())
-    .pipe(gulp.dest(p.distCss))
+    .pipe(gulp.dest(config.distCss))
     .pipe(reload({stream: true}));
 });
 
@@ -101,7 +104,7 @@ gulp.task("bower-css", function() {
     "bower_components/font-awesome/css/font-awesome.css"
   ])
   .pipe(concat("vendor.css"))
-  .pipe(gulp.dest(p.distCss));
+  .pipe(gulp.dest(config.distCss));
 });
 
 gulp.task('styles', function() {
@@ -112,14 +115,14 @@ gulp.task("material-fonts", function() {
   return gulp.src([
     "bower_components/materialize/font/**/*"
   ])
-    .pipe(gulp.dest(p.distFont))
+    .pipe(gulp.dest(config.distFont))
 })
 
 gulp.task("fonts-awesome", function() {
   return gulp.src([
     "bower_components/font-awesome/fonts/**.*"
   ])
-    .pipe(gulp.dest(p.distFonts))
+    .pipe(gulp.dest(config.distFonts))
 })
 
 gulp.task('fonts', function() {
@@ -134,13 +137,13 @@ gulp.task('html-replace', function () {
 
   return gulp.src('index.html')
     .pipe(htmlReplace(replacements))
-    .pipe(gulp.dest(p.distHtml));
+    .pipe(gulp.dest(config.distHtml));
 });
 
 gulp.task('image', function () {
   return gulp.src('img/**')
     .pipe(image())
-    .pipe(gulp.dest(p.distImg));
+    .pipe(gulp.dest(config.distImg));
 });
 
 gulp.task('lint', function() {
@@ -150,7 +153,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('watchTask', function() {
-  gulp.watch(p.scss, ['styles']);
+  gulp.watch(config.scss, ['styles']);
   gulp.watch('src/**/*.jsx', ['lint']);
 });
 

@@ -1,12 +1,12 @@
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
-var PatientLine = require('./PatientLine.jsx');
-var PatientsStore = require('../stores/PatientsStore');
-var PatientActions = require('../actions/PatientActions');
+import React from 'react';
+import Link from 'react-router';
+
+import PatientLine from './PatientLine.jsx';
+import PatientsStore from '../stores/PatientsStore.js';
+import PatientActions from '../actions/PatientActions.js';
 
 
-var patients = React.createClass({
+var Patients = React.createClass({
 
   getInitialState() {
     return PatientsStore.getState();
@@ -67,4 +67,4 @@ var patients = React.createClass({
   }
 });
 
-module.exports = patients;
+export default Patients;

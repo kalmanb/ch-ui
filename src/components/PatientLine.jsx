@@ -1,6 +1,5 @@
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
+import React from 'react';
+import Link from 'react-router';
 
 var patientLine = React.createClass({
   render() {
@@ -8,10 +7,11 @@ var patientLine = React.createClass({
       <tr>
       <td>{ this.props.patient.firstName } { this.props.patient.lastName }</td>
       <td>{ this.props.patient.mobile }</td>
-      <td><Link to="/patient" params={{ id: this.props.patient.id }}>Details</Link></td>
       </tr>
     );
   }
 });
+      // <td><Link to="/patient" params={{ id: this.props.patient.id }}>Details</Link></td>
+      // {this.props.children}
 
-module.exports = patientLine;
+export default patientLine;

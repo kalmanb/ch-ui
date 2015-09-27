@@ -1,17 +1,17 @@
-var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
+import React from 'react';
+import IndexLink from 'react-router';
 
-var patient = React.createClass({
+class Patient extends React.Component {
   render() {
     let id = 'tbc';
     return(
       <div>
-      <Link to="/">Back</Link>
+      --Back--
       Patient { id }
       </div>
     );
   }
-});
+};
+      // <IndexLink to="/abc">Back</IndexLink>
 
-module.exports = patient;
+export default Patient;

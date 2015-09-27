@@ -2,7 +2,7 @@
 
 From: https://github.com/Granze/react-starterify
 
-Use: iojs-v1.3.0
+Use: node 4.1.x
 
 
 ## Usage

@@ -1,5 +1,5 @@
-var alt = require('../alt');
-var PatientSource = require('../sources/PatientsSource.js');
+import altInstance from '../altInstance.js';
+import PatientSource from '../sources/PatientsSource.js';
 
 class PatientActions {
   updatePatients(patients) {
@@ -26,4 +26,4 @@ class PatientActions {
   }
 }
 
-module.exports = alt.createActions(PatientActions);
+module.exports = altInstance.createActions(PatientActions);
