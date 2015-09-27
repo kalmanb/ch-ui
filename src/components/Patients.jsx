@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Link from 'react-router';
 
 import PatientLine from './PatientLine.jsx';
@@ -6,26 +6,33 @@ import PatientsStore from '../stores/PatientsStore';
 import PatientActions from '../actions/PatientActions';
 
 
-var Patients = React.createClass({
+class Patients extends Component {
 
-  getInitialState() {
-    return PatientsStore.getState();
-  },
+  constructor() {
+    super();
+    this.state = PatientsStore.getState();
+    this.search = this.search.bind(this);
+    this.onChange = this.onChange.bind(this);
+  };
+
+  // getInitialState() {
+  //   return PatientsStore.getState();
+  // }
   componentDidMount() {
     PatientsStore.listen(this.onChange);
-  },
+  }
   componentWillUnmount() {
     PatientsStore.unlisten(this.onChange);
-  },
+  }
   onChange(state) {
     this.setState(state);
-  },
+  }
   
   search(evt) {
     evt.preventDefault();
     var searchText = this.refs.searchText.getDOMNode().value;
     PatientActions.fetchPatients(searchText);
-  },
+  }
 
   renderPatients() {
     return this.state.patients.map((patient) => {
@@ -33,7 +40,7 @@ var Patients = React.createClass({
         <PatientLine key={patient.id} patient={patient} />
       )
     });
-  },
+  }
 
   renderLoading() {
     if (this.state.loading) {
@@ -45,7 +52,7 @@ var Patients = React.createClass({
     } else {
       return ''
     }
-  },
+  }
   
   render() {
     return (
@@ -65,6 +72,6 @@ var Patients = React.createClass({
       </div>
     );
   }
-});
+};
 
 export default Patients;
