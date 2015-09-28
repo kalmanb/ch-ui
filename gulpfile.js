@@ -57,7 +57,10 @@ gulp.task('watchify', function() {
       .pipe(reload({stream: true}));
   }
 
-  bundler.transform(babelify)
+  bundler
+  .transform(babelify.configure({
+    optional: ["es7.decorators"]
+  }))
   .on('update', rebundle);
   return rebundle();
 });
@@ -67,7 +70,9 @@ gulp.task('browserify', function() {
     entries: config.jsx
   }
     )
-    .transform(babelify)
+    .transform(babelify.configure({
+      optional: ["es7.decorators"]
+    }))
     .bundle()
     .pipe(source(config.bundle))
     .pipe(buffer())

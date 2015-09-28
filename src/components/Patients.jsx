@@ -5,7 +5,7 @@ import PatientLine from './PatientLine.jsx';
 import PatientsStore from '../stores/PatientsStore';
 import PatientActions from '../actions/PatientActions';
 
-
+@connectToStores
 class Patients extends Component {
 
   constructor() {
@@ -13,14 +13,13 @@ class Patients extends Component {
     this.search = this.search.bind(this);
   };
 
-  // Using connectToStores - couldn't get decoration to work
+  // Using connectToStores 
   static getStores() {
     return [PatientsStore];
   }
   static getPropsFromStores() {
     return PatientsStore.getState();
   }
-
   
   search(evt) {
     evt.preventDefault();
@@ -68,4 +67,4 @@ class Patients extends Component {
   }
 };
 
-export default connectToStores(Patients);
+export default Patients;

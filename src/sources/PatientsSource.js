@@ -56,4 +56,4 @@ var PatientsSource = {
   }
 };
 
-module.exports = PatientsSource;
+export default PatientsSource;

@@ -1,6 +1,9 @@
-import altInstance from '../altInstance.js';
-import PatientSource from '../sources/PatientsSource.js';
+import altInstance from '../altInstance';
+import PatientSource from '../sources/PatientsSource';
 
+import { createActions } from 'alt/utils/decorators';
+
+@createActions(altInstance)
 class PatientActions {
   updatePatients(patients) {
     this.dispatch(patients);
@@ -26,4 +29,4 @@ class PatientActions {
   }
 }
 
-module.exports = altInstance.createActions(PatientActions);
+export default PatientActions;
