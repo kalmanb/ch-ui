@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Link from 'react-router';
+import connectToStores from 'alt/utils/connectToStores';
 
 import PatientLine from './PatientLine.jsx';
 import PatientsStore from '../stores/PatientsStore';
@@ -10,23 +10,17 @@ class Patients extends Component {
 
   constructor() {
     super();
-    this.state = PatientsStore.getState();
     this.search = this.search.bind(this);
-    this.onChange = this.onChange.bind(this);
   };
 
-  // getInitialState() {
-  //   return PatientsStore.getState();
-  // }
-  componentDidMount() {
-    PatientsStore.listen(this.onChange);
+  // Using connectToStores - couldn't get decoration to work
+  static getStores() {
+    return [PatientsStore];
   }
-  componentWillUnmount() {
-    PatientsStore.unlisten(this.onChange);
+  static getPropsFromStores() {
+    return PatientsStore.getState();
   }
-  onChange(state) {
-    this.setState(state);
-  }
+
   
   search(evt) {
     evt.preventDefault();
@@ -35,7 +29,7 @@ class Patients extends Component {
   }
 
   renderPatients() {
-    return this.state.patients.map((patient) => {
+    return this.props.patients.map((patient) => {
       return(
         <PatientLine key={patient.id} patient={patient} />
       )
@@ -43,7 +37,7 @@ class Patients extends Component {
   }
 
   renderLoading() {
-    if (this.state.loading) {
+    if (this.props.loading) {
       return (
         <div className='progress blue darken-2'>
           <div className='indeterminate blue lighten-3'></div>
@@ -74,4 +68,4 @@ class Patients extends Component {
   }
 };
 
-export default Patients;
+export default connectToStores(Patients);
