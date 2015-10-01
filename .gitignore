@@ -4,3 +4,4 @@ node_modules
 dist
 bower_components
 .tern-port
+settings.json

@@ -1,57 +1,34 @@
+import Firebase from 'firebase';
+import Immutable from 'immutable';
+
 import PatientActions from '../actions/PatientActions';
+import Settings from '../settings.json'
 
-var patients = [{'id': 1,
-                  'firstName': 'Kal',
-                  'lastName': 'Bek',
-                  'mobile': '021 555 5555'
-                 },
-                 {
-                   'id': 2,
-                   'firstName': 'Ele',
-                   'lastName': 'Bek',
-                   'mobile': '021 555 5555'
-                 }];
-
-var patient = {'id': 1,
-                   'firstName': 'Kal',
-                   'lastName': 'Bek',
-               'mobile': '021 555 5555',
-               'address1': '123 The St',
-
-                  }
+// Connect to FB
+const ref = new Firebase(Settings.firebaseUrl + "/patients");
 
 var PatientsSource = {
   fetchPatients() {
-    return new Promise(function (resolve, reject) {
-      // simulate an asynchronous flow where data is fetched on
-      // a remote server somewhere.
-      setTimeout(function () {
-
-        // change this to `false` to see the error action being handled.
-        if (true) {
-          // resolve with some mock data
-          resolve(patients);
-        } else {
-          reject('Things have broken');
-        }
-      }, 250);
+    return new Promise((resolve, reject) => {
+      ref.on("value", (snapshot) => {
+        var patients = Immutable.Map(snapshot.val());
+        resolve(patients);
+      }, (errorObject) => {
+        reject("The read failed: " + errorObject.code);
+      });
     });
   },
-
-  fetchPatient() {
-    return new Promise(function (resolve, reject) {
-      // simulate an asynchronous flow where data is fetched on
-      // a remote server somewhere.
-      setTimeout(function () {
-
-        // change this to `false` to see the error action being handled.
-        if (true) {
-          // resolve with some mock data
-          resolve(patient);
-        } else {
-          reject('Things have broken');
-        }
-      }, 250);
+  fetchPatient(key) {
+    return new Promise((resolve, reject) => {
+      // not sure if this works yet - maybe should be in PatientSource?
+      ref.child(key).on("value", (snapshot) => {
+        var patient = snapshot.val();
+        console.log("got patient:");
+        console.log(patient);
+        resolve(patient);
+      }, (errorObject) => {
+        reject("The read failed: " + errorObject.code);
+      });
     });
   }
 };

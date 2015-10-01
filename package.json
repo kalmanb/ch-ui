@@ -22,7 +22,10 @@
     "react": "^0.13.3",
     "react-router": "^1.0.0-rc1",
     "alt": "^0.17.3",
-    "superagent": "^1.4.0"
+    "superagent": "^1.4.0",
+    "firebase": "^2.3.0",
+    "ramda": "^0.17.1",
+    "immutable": "^3.7.5"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",

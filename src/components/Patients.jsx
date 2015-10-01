@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import connectToStores from 'alt/utils/connectToStores';
+import R from 'ramda';
 
 import PatientLine from './PatientLine.jsx';
 import PatientsStore from '../stores/PatientsStore';
@@ -28,11 +29,27 @@ class Patients extends Component {
   }
 
   renderPatients() {
-    return this.props.patients.map((patient) => {
+    // console.log("asetnesnt");
+    // console.log(this.props.patients);
+    // // return this.props.patients.map((patient, key) => {
+    // var tt = R.map((patient, key) => {
+    //   console.log(key);
+    //   return key;
+    //   },
+    //   this.props.patients)
+    // console.log(tt);
+    return this.props.patients.map((patient, key) => {
       return(
-        <PatientLine key={patient.id} patient={patient} />
+        <PatientLine key={key} patient={patient} />
       )
     });
+    // return tt;
+    // return R.map((patient, key) => {
+    //   console.log(key);
+    //   return (
+    //     <PatientLine key={patient.id} patient={patient} />
+    //   )},
+    //   this.props.patients)
   }
 
   renderLoading() {

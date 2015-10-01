@@ -1,6 +1,9 @@
+import Immutable, { Map } from 'immutable';
+
 import altInstance from '../altInstance.js';
 import PatientActions from '../actions/PatientActions';
 import PatientsSource from '../sources/PatientsSource';
+
 
 import { createStore, datasource } from 'alt/utils/decorators';
 
@@ -8,7 +11,7 @@ import { createStore, datasource } from 'alt/utils/decorators';
 @datasource(PatientsSource)
 class PatientsStore {
   constructor() {
-    this.patients = [];
+    this.patients = Map();
     this.loading = false;
     this.errorMessage = '';
     this.bindListeners({
@@ -19,6 +22,7 @@ class PatientsStore {
   }
 
   handleUpdatePatients(patients) {
+    console.log(patients);
     this.patients = patients;
     this.errorMessage = '';
     this.loading = false;

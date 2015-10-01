@@ -18,7 +18,7 @@ class PatientActions {
   }
 
   fetchPatients(searchText) {
-    PatientSource.fetchPatients().then((patients)=> {
+    PatientSource.fetchPatientsFB().then((patients)=> {
       this.actions.updatePatients(patients);
     });
     this.dispatch();
