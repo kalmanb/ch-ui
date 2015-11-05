@@ -7,12 +7,16 @@ import Settings from '../settings.json'
 // Connect to FB
 const ref = new Firebase(Settings.firebaseUrl + "/patients");
 
-var PatientsSource = {
-  fetchPatients(searchText) {
+var PatientSource = {
+  fetchPatient(id) {
+    console.log("xxx :" + id)
+    console.log(id)
     return new Promise((resolve, reject) => {
-      ref.once("value", (snapshot) => {
-        var patients = Immutable.Map(snapshot.val());
-        resolve(patients);
+      ref.child(id).once("value", (snapshot) => {
+        var patient = snapshot.val();
+        console.log("got patient:");
+        console.log(patient);
+        resolve(patient);
       }, (errorObject) => {
         reject("The read failed: " + errorObject.code);
       });
@@ -20,4 +24,4 @@ var PatientsSource = {
   }
 };
 
-export default PatientsSource;
+export default PatientSource;

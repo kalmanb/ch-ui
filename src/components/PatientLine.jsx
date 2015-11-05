@@ -3,11 +3,14 @@ import { Link } from 'react-router';
 
 export default class PatientLine extends React.Component {
   render() {
+    let { id, patient } = this.props
     return(
       <tr>
-      <td>{ this.props.patient.firstName } { this.props.patient.lastName }</td>
-      <td>{ this.props.patient.mobile }</td>
-      <td><Link to="/patient" params={{ id: this.props.patient.id }}>Details</Link></td>
+        <td>{ patient.firstName } { patient.lastName }</td>
+        <td>{ patient.mobile }</td>
+        <td>
+          <Link to={`/patient/${id}`}>Details</Link>
+        </td>
       </tr>
     );
   }

@@ -1,7 +1,7 @@
 import Immutable, { Map } from 'immutable';
 
 import altInstance from '../altInstance.js';
-import PatientActions from '../actions/PatientActions';
+import PatientsActions from '../actions/PatientsActions';
 import PatientsSource from '../sources/PatientsSource';
 
 
@@ -15,14 +15,13 @@ class PatientsStore {
     this.loading = false;
     this.errorMessage = '';
     this.bindListeners({
-      handleUpdatePatients: PatientActions.UPDATE_PATIENTS,
-      handleFetchPatients: PatientActions.FETCH_PATIENTS,
-      handlePatientsFailed: PatientActions.PATIENTS_FAILED,
+      handleUpdatePatients: PatientsActions.UPDATE_PATIENTS,
+      handleFetchPatients: PatientsActions.FETCH_PATIENTS,
+      handlePatientsFailed: PatientsActions.PATIENTS_FAILED,
     });
   }
 
   handleUpdatePatients(patients) {
-    console.log(patients);
     this.patients = patients;
     this.errorMessage = '';
     this.loading = false;

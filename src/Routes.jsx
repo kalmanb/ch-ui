@@ -9,7 +9,7 @@ export default (
   <Router>
     <Route path="/" component={Main}>
       <IndexRoute component={Patients} />
-      <Route path="/patient" component={Patient} />
+      <Route path="/patient/:id" component={Patient} />
       <Route path="*" component={NoMatch}/>
     </Route>
   </Router>

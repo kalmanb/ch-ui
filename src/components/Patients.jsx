@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import connectToStores from 'alt/utils/connectToStores';
-import R from 'ramda';
 
 import PatientLine from './PatientLine.jsx';
 import PatientsStore from '../stores/PatientsStore';
-import PatientActions from '../actions/PatientActions';
+import PatientsActions from '../actions/PatientsActions';
 
 @connectToStores
 class Patients extends Component {
@@ -14,42 +13,26 @@ class Patients extends Component {
     this.search = this.search.bind(this);
   };
 
-  // Using connectToStores 
+  // Using connectToStores
   static getStores() {
     return [PatientsStore];
   }
   static getPropsFromStores() {
     return PatientsStore.getState();
   }
-  
+
   search(evt) {
     evt.preventDefault();
     var searchText = this.refs.searchText.getDOMNode().value;
-    PatientActions.fetchPatients(searchText);
+    PatientsActions.fetchPatients(searchText);
   }
 
   renderPatients() {
-    // console.log("asetnesnt");
-    // console.log(this.props.patients);
-    // // return this.props.patients.map((patient, key) => {
-    // var tt = R.map((patient, key) => {
-    //   console.log(key);
-    //   return key;
-    //   },
-    //   this.props.patients)
-    // console.log(tt);
-    return this.props.patients.map((patient, key) => {
+    return this.props.patients.map((patient, id) => {
       return(
-        <PatientLine key={key} patient={patient} />
+        <PatientLine id={id} patient={patient} />
       )
     });
-    // return tt;
-    // return R.map((patient, key) => {
-    //   console.log(key);
-    //   return (
-    //     <PatientLine key={patient.id} patient={patient} />
-    //   )},
-    //   this.props.patients)
   }
 
   renderLoading() {
@@ -63,7 +46,7 @@ class Patients extends Component {
       return ''
     }
   }
-  
+
   render() {
     return (
       <div>
