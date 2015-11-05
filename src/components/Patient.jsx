@@ -7,7 +7,7 @@ import PatientActions from '../actions/PatientActions';
 import { Link } from 'react-router';
 
 @connectToStores
-export default class Patient extends Component {
+class Patient extends Component {
 
   static getStores() {
     return [PatientStore];
@@ -19,7 +19,6 @@ export default class Patient extends Component {
   render() {
     let { id } = this.props.params
     let { loading } = this.props
-    console.log(this.props.patient)
 
       if (loading) {
         return(<div/>);
@@ -36,3 +35,5 @@ export default class Patient extends Component {
       }
   }
 };
+
+export default Patient;

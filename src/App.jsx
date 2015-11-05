@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import Routes from './Routes.jsx'
 
-React.render(Routes, document.getElementById('content'));
+ReactDOM.render(Routes, document.getElementById('content'));

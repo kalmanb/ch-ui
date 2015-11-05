@@ -58,9 +58,9 @@ gulp.task('watchify', function() {
   }
 
   bundler
-  .transform(babelify.configure({
-    optional: ["es7.decorators"]
-  }))
+    .transform(babelify.configure({
+      optional: ["es7.decorators"]
+    }))
   .on('update', rebundle);
   return rebundle();
 });
