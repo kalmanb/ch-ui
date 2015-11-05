@@ -21,6 +21,7 @@
   "dependencies": {
     "react": "^0.13.3",
     "react-router": "^1.0.0-rc1",
+    "history": "1.13.0",
     "alt": "^0.17.3",
     "superagent": "^1.4.0",
     "firebase": "^2.3.0",

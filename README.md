@@ -10,6 +10,10 @@ Use: node 4.1.x
 __Install the dependencies:__
 
 `npm install`
+`bower install`
+
+
+`cp src/settings.json.example src/settings.json`
 
 __Test:__
 
